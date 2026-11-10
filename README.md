@@ -11,6 +11,39 @@ The purposes of this project include:
 - Get a basic emulator running for almost any .ch8 ROM file.
 - Create a dissasembler which runs any .ch8 file and decodes the opcodes.
 
+# Main Architecture
+
+```mermaid
+flowchart TD
+    A["emulator.cpp"] --> B["cpu.cpp"]
+    B --> C["Fetch"]
+    C --> D["Decode"]
+    D --> E["Execute"]
+```
+# CPU Flow
+
+```mermaid
+flowchart TD
+    A([Start Emulator]) --> B["Initialize CPU"]
+    B --> C["Load CHIP-8 ROM"]
+    C --> D["Initialize SDL"]
+    D --> E["Enter Main Emulator Loop"]
+
+    E --> F["Poll SDL Events"]
+    F --> G["Update Key Mapping"]
+    G --> H["Fetch Opcode"]
+    H --> I["Decode Opcode"]
+    I --> J["Execute Instruction"]
+    J --> K["Update Timers (60 Hz)"]
+    K --> L["Render Display"]
+    L --> M{"Exit Requested?"}
+
+    M -->|No| E
+    M -->|Yes| N["Shutdown SDL"]
+    N --> O([Exit Emulator])
+```
+
+
 # Requirements
 - Windows
 - MSYS2

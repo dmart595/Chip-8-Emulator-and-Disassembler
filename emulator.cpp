@@ -87,13 +87,17 @@ int main(int argc, char **argv){
     uint32_t lastTimerUpd = SDL_GetTicks(); //initialize a timer variable
 
     while(running){ 
+        
         uint32_t start = SDL_GetTicks(); //gets the ms since start up.
         
         while(SDL_PollEvent(&event)){ //gives memory address of the event
+            
             if(event.type == SDL_QUIT){
                 running = false;
             }else if(event.type == SDL_KEYDOWN || event.type == SDL_KEYUP){
+                
                 for(int i=0; i<16; i++){
+                    
                     if(event.key.keysym.sym == keyMap[i]){
                         key[i] = (event.type == SDL_KEYDOWN); //this argument returns key[i] to 1
 
